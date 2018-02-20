@@ -1,0 +1,56 @@
+
+<div class=" mat-elevation-z8">
+  <mat-table #table [dataSource]="exchangeHistory">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- DateTime Column -->
+    <ng-container matColumnDef="dateTime">
+      <mat-header-cell *matHeaderCellDef> Date Time </mat-header-cell>
+      <mat-cell *matCellDef="let exchangeItem"> {{exchangeItem.dateTime | date:'dd MMM yyyy HH:mm a'}} </mat-cell>
+    </ng-container>
+
+    <!-- Bitcoin -->
+    <ng-container matColumnDef="bitcoin">
+      <mat-header-cell *matHeaderCellDef> Bitcoin </mat-header-cell>
+      <mat-cell *matCellDef="let exchangeItem">
+        <span [class]="getVarianceClass(exchangeItem.exchangeCurrencyData.get('Bitcoin'))">
+            <i class="material-icons">{{getVarianceIndicatorIcon(exchangeItem.exchangeCurrencyData.get('Bitcoin'))}}</i>
+            {{exchangeItem.exchangeCurrencyData.get('Bitcoin').value}} 
+            ({{exchangeItem.exchangeCurrencyData.get('Bitcoin').varianceIndicator}}
+            {{exchangeItem.exchangeCurrencyData.get('Bitcoin').variance}}) 
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Ethereum Column -->
+    <ng-container matColumnDef="ethereum">
+      <mat-header-cell *matHeaderCellDef> Ethereum </mat-header-cell>
+      <mat-cell *matCellDef="let exchangeItem">
+        <span [class]="getVarianceClass(exchangeItem.exchangeCurrencyData.get('Ethereum'))">
+            <i class="material-icons">{{getVarianceIndicatorIcon(exchangeItem.exchangeCurrencyData.get('Ethereum'))}}</i>
+            {{exchangeItem.exchangeCurrencyData.get('Ethereum').value}} 
+            ({{exchangeItem.exchangeCurrencyData.get('Ethereum').varianceIndicator}}
+            {{exchangeItem.exchangeCurrencyData.get('Ethereum').variance}})
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Ripple Column -->
+    <ng-container matColumnDef="ripple">
+      <mat-header-cell *matHeaderCellDef> Ripple </mat-header-cell>
+      <mat-cell *matCellDef="let exchangeItem">
+        <span [class]="getVarianceClass(exchangeItem.exchangeCurrencyData.get('Ripple'))">
+          <i class="material-icons">{{getVarianceIndicatorIcon(exchangeItem.exchangeCurrencyData.get('Ripple'))}}</i>
+          {{exchangeItem.exchangeCurrencyData.get('Ripple').value}} 
+          ({{exchangeItem.exchangeCurrencyData.get('Ripple').varianceIndicator}}
+          {{exchangeItem.exchangeCurrencyData.get('Ripple').variance}})
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

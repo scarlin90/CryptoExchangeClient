@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { ExchangeModule } from './exchange/exchange.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MaterialModule } from './material/material.module';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    MaterialModule
+    MaterialModule,
+    ExchangeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
