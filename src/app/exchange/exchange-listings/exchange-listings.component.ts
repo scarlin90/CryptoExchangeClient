@@ -14,7 +14,6 @@ import { ExchangeService } from '../../shared/services/exchange.service';
   selector: 'app-exchange-listings',
   templateUrl: './exchange-listings.component.html',
   styleUrls: ['./exchange-listings.component.css'],
-  providers: [ExchangeService]
 })
 export class ExchangeListingsComponent implements OnInit {
 

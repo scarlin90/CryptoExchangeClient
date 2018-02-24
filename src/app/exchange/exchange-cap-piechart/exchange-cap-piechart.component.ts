@@ -7,7 +7,6 @@ import { ExchangeCurrencyShare } from '../../shared/models/exchange-currency-sha
   selector: 'app-exchange-cap-piechart',
   templateUrl: './exchange-cap-piechart.component.html',
   styleUrls: ['./exchange-cap-piechart.component.css'],
-  providers: [ExchangeService]
 })
 export class ExchangeCapPiechartComponent implements OnInit {
 

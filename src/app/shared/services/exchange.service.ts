@@ -7,6 +7,7 @@ import { ExchangeListingDataSource } from '../datasources/exchange-listing.datas
 import { ExchangeListingEmitter } from '../emitters/exchange-listing.emitter';
 import { MarketCap } from '../constants/market-cap.constant';
 import { ExchangeCurrencyShare } from '../models/exchange-currency-share.model';
+import { ExchangeCurrencyTrends, ExchangeCurrencyTrend } from '../models/exchange-currency-trends.model';
 
 @Injectable()
 export class ExchangeService {
@@ -17,6 +18,7 @@ export class ExchangeService {
   poller: any;
   latestExchangeListing: ExchangeListing = BaseExchangeListing.EXCHANGE_DATA[0];
   exchangeMarketShare: ExchangeCurrencyShare[];
+  chartData = BaseExchangeListing.CURRENCY_TREND_DATA;
 
   constructor() {
     this.poller = timer(0,4000);
@@ -24,25 +26,29 @@ export class ExchangeService {
    }
 
   startListening() {
-    
+
     this.exchangeListingEmitter = new ExchangeListingEmitter();
     this.dataSource = new ExchangeListingDataSource(this.exchangeListingEmitter);
     
     const subscribe = this.poller.subscribe(tick => {
-      this.latestExchangeListing = this.getRandomExchangeListing(BaseExchangeListing.EXCHANGE_DATA[0]);
-      BaseExchangeListing.EXCHANGE_DATA.unshift(this.latestExchangeListing);
-
-      if(BaseExchangeListing.EXCHANGE_DATA.length == 11){
-        BaseExchangeListing.EXCHANGE_DATA.pop();
-      }
-
-      this.exchangeListingEmitter.dataChange.next(BaseExchangeListing.EXCHANGE_DATA);
+      this.exchangeListingEmitter.dataChange.next(this.getExchangeListings());
       this.exchangeListingEmitter.dataChange2.next(this.getLatestMarketShare());
+      this.exchangeListingEmitter.dataChange3.next(this.getCurrencyTrends());
     });
   }
 
   stopListening() {
     this.poller = undefined;
+  }
+
+  getExchangeListings(): ExchangeListing[] {
+    this.latestExchangeListing = this.getRandomExchangeListing(BaseExchangeListing.EXCHANGE_DATA[0]);
+      BaseExchangeListing.EXCHANGE_DATA.unshift(this.latestExchangeListing);
+
+      if(BaseExchangeListing.EXCHANGE_DATA.length == 11){
+        BaseExchangeListing.EXCHANGE_DATA.pop();
+      }
+      return BaseExchangeListing.EXCHANGE_DATA;
   }
 
   getRandomExchangeListing(previousExchangeListing: ExchangeListing): ExchangeListing {
@@ -110,6 +116,35 @@ export class ExchangeService {
             {name: CurrencyType.Ethereum, value: ethereumTotalMarketShare},
             {name: CurrencyType.Ripple, value: rippleTotalMarketShare},
           ]
+  }
+
+  getCurrencyTrends(): ExchangeCurrencyTrend[] {
+
+    this.chartData[0].series.push({
+      name: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(), 
+      value: this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value
+    });
+    this.chartData[1].series.push({
+      name: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(), 
+      value: this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value
+    });
+    this.chartData[2].series.push({
+      name: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(), 
+      value: this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value
+    });
+
+    if(this.chartData[0].series.length >10)
+    {
+      this.chartData[0].series.shift();
+      this.chartData[1].series.shift();
+      this.chartData[2].series.shift();
+    }
+
+    return [
+      { name: CurrencyType.Bitcoin, series: this.chartData[0].series},
+      { name: CurrencyType.Ethereum, series: this.chartData[1].series},
+      { name: CurrencyType.Ripple, series: this.chartData[2].series},
+      ];
   }
 
   getVarianceIndicator(generatedVarianceNumber: number) : string {
