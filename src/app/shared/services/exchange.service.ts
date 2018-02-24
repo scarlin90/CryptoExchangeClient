@@ -5,6 +5,8 @@ import { ExchangeCurrency, CurrencyType } from '../models/exchange-currency.mode
 import { timer } from 'rxjs/observable/timer';
 import { ExchangeListingDataSource } from '../datasources/exchange-listing.datasouce';
 import { ExchangeListingEmitter } from '../emitters/exchange-listing.emitter';
+import { MarketCap } from '../constants/market-cap.constant';
+import { ExchangeCurrencyShare } from '../models/exchange-currency-share.model';
 
 @Injectable()
 export class ExchangeService {
@@ -13,11 +15,12 @@ export class ExchangeService {
   exchangeListings: ExchangeListing[];
   exchangeListingEmitter: ExchangeListingEmitter;
   poller: any;
+  latestExchangeListing: ExchangeListing = BaseExchangeListing.EXCHANGE_DATA[0];
+  exchangeMarketShare: ExchangeCurrencyShare[];
 
   constructor() {
     this.poller = timer(0,4000);
     this.startListening();
-    
    }
 
   startListening() {
@@ -26,14 +29,15 @@ export class ExchangeService {
     this.dataSource = new ExchangeListingDataSource(this.exchangeListingEmitter);
     
     const subscribe = this.poller.subscribe(tick => {
-      
-      BaseExchangeListing.EXCHANGE_DATA.unshift(this.getRandomExchangeListing(BaseExchangeListing.EXCHANGE_DATA[0]));
+      this.latestExchangeListing = this.getRandomExchangeListing(BaseExchangeListing.EXCHANGE_DATA[0]);
+      BaseExchangeListing.EXCHANGE_DATA.unshift(this.latestExchangeListing);
 
       if(BaseExchangeListing.EXCHANGE_DATA.length == 11){
         BaseExchangeListing.EXCHANGE_DATA.pop();
       }
 
       this.exchangeListingEmitter.dataChange.next(BaseExchangeListing.EXCHANGE_DATA);
+      this.exchangeListingEmitter.dataChange2.next(this.getLatestMarketShare());
     });
   }
 
@@ -93,6 +97,19 @@ export class ExchangeService {
                                 })
     }
     return exchangeListing;
+  }
+
+  getLatestMarketShare(): ExchangeCurrencyShare[] {
+
+    let bitcoinTotalMarketShare = MarketCap.TOTAL_AMMOUNT_BITCOIN * this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value;
+    let ethereumTotalMarketShare = MarketCap.TOTAL_AMMOUNT_ETHEREUM * this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value;
+    let rippleTotalMarketShare = MarketCap.TOTAL_AMMOUNT_RIPPLE * this.latestExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value;
+  
+    return [
+            {name: CurrencyType.Bitcoin, value: bitcoinTotalMarketShare},
+            {name: CurrencyType.Ethereum, value: ethereumTotalMarketShare},
+            {name: CurrencyType.Ripple, value: rippleTotalMarketShare},
+          ]
   }
 
   getVarianceIndicator(generatedVarianceNumber: number) : string {
