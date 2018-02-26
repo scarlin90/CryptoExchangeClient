@@ -1,0 +1,22 @@
+
+  <div class="login-container">
+              <div class="login">
+                  <div class="account-wall">
+                      <img class="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
+                      <div class="form-signin">
+                          <mat-input-container class="justifier">
+                              <input matInput placeholder="Username" text="text" [(ngModel)]="user.username">
+                          </mat-input-container>
+
+                          <mat-input-container class="justifier">
+                              <input matInput placeholder="Password" text="password" [(ngModel)]="user.password">
+                          </mat-input-container>
+                     
+                          <br>
+                          <button mat-raised-button class="login-button" (click)="authenticate()" (keyup.enter)="authenticate()"> 
+                              <mat-icon>input</mat-icon> Sign in
+                          </button>
+                      </div>
+                  </div>
+              </div>
+    </div>

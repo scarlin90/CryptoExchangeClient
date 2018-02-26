@@ -56,6 +56,10 @@ export class ExchangeService {
     let bitcoinVariance = 0;
     let ethereumVariance = 0;
     let rippleVariance = 0;
+    let variantBitcoinValue = 0;
+    let variantEthereumValue = 0;
+    let variantRippleValue = 0;
+    
     let bitcoinVarianceIndicatorNumber = Math.floor((Math.random() * 3));
     let ethereumVarianceIndicatorNumber = Math.floor((Math.random() * 3));
     let rippleVarianceIndicatorNumber = Math.floor((Math.random() * 3));
@@ -72,9 +76,19 @@ export class ExchangeService {
       rippleVariance = Math.floor((Math.random() * 10));
     }
 
-    let variantBitcoinValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value + bitcoinVariance;
-    let variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value + ethereumVariance;
-    let variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value + rippleVariance;
+    if(bitcoinVarianceIndicatorNumber === 2){
+      variantBitcoinValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value - bitcoinVariance;
+      variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value - ethereumVariance;
+      variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value - rippleVariance;
+    }
+    else {
+      variantBitcoinValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value + bitcoinVariance;
+      variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value + ethereumVariance;
+      variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value + rippleVariance;
+    }
+
+    
+    
     
 
     let exchangeListing : ExchangeListing = {

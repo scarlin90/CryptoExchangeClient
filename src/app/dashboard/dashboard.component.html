@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
+  
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Logout</button>
+        <button mat-menu-item>Help</button>
+      </mat-menu>
+      
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+
+      </button>
+  </mat-toolbar>
+<br>
+
+<br>
+  <mat-tab-group>
+      <mat-tab label="Currency Trend Table">
+          <app-exchange-listings></app-exchange-listings>
+            
+        </mat-tab>
+      <mat-tab label="Currency Trend Graph">
+        <app-exchange-currency-trend-line-graph></app-exchange-currency-trend-line-graph>
+          
+      </mat-tab>
+      <mat-tab label="Worldwide Market Share">
+          <app-exchange-cap-piechart></app-exchange-cap-piechart>
+      </mat-tab>
+    </mat-tab-group>

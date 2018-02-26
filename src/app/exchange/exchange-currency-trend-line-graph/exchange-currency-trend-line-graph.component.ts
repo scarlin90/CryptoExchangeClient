@@ -20,7 +20,7 @@ export class ExchangeCurrencyTrendLineGraphComponent implements OnInit {
   ngOnInit() {
   }
 
-  view: any[] = [700, 400];
+  view: any[] = [600, 300];
 
   // options
   showXAxis = true;

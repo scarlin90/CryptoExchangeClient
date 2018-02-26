@@ -10,7 +10,7 @@ export class BaseExchangeListing {
                                   .set(CurrencyType.Bitcoin,
                                     {
                                       currencyType: CurrencyType.Bitcoin,
-                                      value: 2000,
+                                      value: 1000,
                                       variance: 0,
                                       varianceIndicator: ''
                                     })
@@ -24,7 +24,7 @@ export class BaseExchangeListing {
                                   .set(CurrencyType.Ripple,
                                     {
                                       currencyType: CurrencyType.Ripple,
-                                      value: 124,
+                                      value: 600,
                                       variance: 0,
                                       varianceIndicator: ''
                                     })

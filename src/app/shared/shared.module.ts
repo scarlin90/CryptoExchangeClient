@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LocalStorageService } from './services/local-storage.service';
+import { IsLoggedinGuard } from './guards/is-loggedin.guard';
 
-@NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
-})
-export class SharedModule { }
+@NgModule({})
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [LocalStorageService, IsLoggedinGuard]
+    };
+  }
+ }
+

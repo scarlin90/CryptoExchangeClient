@@ -11,8 +11,7 @@ import { ExchangeCurrencyShare } from '../../shared/models/exchange-currency-sha
 export class ExchangeCapPiechartComponent implements OnInit {
 
   exchangeCapData: ExchangeCurrencyShare[];
-  view: any[] = [800, 400];
-
+  view: any[] = [800, 500];
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
