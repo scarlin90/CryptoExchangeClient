@@ -3,11 +3,6 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { IsLoggedinGuard } from './shared/guards/is-loggedin.guard';
 
-// const appRoutes: Routes = [
-//     { path: 'login', component: LoginComponent },
-//     { path: '',   redirectTo: '/login', pathMatch: 'full' },
-//   ];
-
   const appRoutes: Routes = [
     {
       path: 'login',
@@ -27,7 +22,7 @@ import { IsLoggedinGuard } from './shared/guards/is-loggedin.guard';
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: true }
     )
   ],
   exports: [

@@ -6,3 +6,9 @@
 /* pink-bluegrey.css */
 /* purple-green.css */
 /* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
+body {
+    color: #FFF;
+}
+
+.ngx-charts text { fill: #fff!important; }

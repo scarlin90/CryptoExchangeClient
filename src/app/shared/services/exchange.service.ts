@@ -4,17 +4,18 @@ import { BaseExchangeListing } from '../constants/base-exchange-listing.constant
 import { ExchangeCurrency, CurrencyType } from '../models/exchange-currency.model';
 import { timer } from 'rxjs/observable/timer';
 import { ExchangeListingDataSource } from '../datasources/exchange-listing.datasouce';
-import { ExchangeListingEmitter } from '../emitters/exchange-listing.emitter';
 import { MarketCap } from '../constants/market-cap.constant';
 import { ExchangeCurrencyShare } from '../models/exchange-currency-share.model';
 import { ExchangeCurrencyTrends, ExchangeCurrencyTrend } from '../models/exchange-currency-trends.model';
+import { Variance } from '../constants/variance.constant';
+import { ExchangeDataEmitter } from '../emitters/exchange-data.emitter';
 
 @Injectable()
 export class ExchangeService {
 
   dataSource: ExchangeListingDataSource;
   exchangeListings: ExchangeListing[];
-  exchangeListingEmitter: ExchangeListingEmitter;
+  exchangeDataEmitter: ExchangeDataEmitter;
   poller: any;
   latestExchangeListing: ExchangeListing = BaseExchangeListing.EXCHANGE_DATA[0];
   exchangeMarketShare: ExchangeCurrencyShare[];
@@ -27,13 +28,13 @@ export class ExchangeService {
 
   startListening() {
 
-    this.exchangeListingEmitter = new ExchangeListingEmitter();
-    this.dataSource = new ExchangeListingDataSource(this.exchangeListingEmitter);
+    this.exchangeDataEmitter = new ExchangeDataEmitter();
+    this.dataSource = new ExchangeListingDataSource(this.exchangeDataEmitter);
     
     const subscribe = this.poller.subscribe(tick => {
-      this.exchangeListingEmitter.dataChange.next(this.getExchangeListings());
-      this.exchangeListingEmitter.dataChange2.next(this.getLatestMarketShare());
-      this.exchangeListingEmitter.dataChange3.next(this.getCurrencyTrends());
+      this.exchangeDataEmitter.exchangeListingDataStream.next(this.getExchangeListings());
+      this.exchangeDataEmitter.exchangeCurrencyShareDataStream.next(this.getLatestMarketShare());
+      this.exchangeDataEmitter.exchangeCurrencyTrendDataStream.next(this.getCurrencyTrends());
     });
   }
 
@@ -45,7 +46,7 @@ export class ExchangeService {
     this.latestExchangeListing = this.getRandomExchangeListing(BaseExchangeListing.EXCHANGE_DATA[0]);
       BaseExchangeListing.EXCHANGE_DATA.unshift(this.latestExchangeListing);
 
-      if(BaseExchangeListing.EXCHANGE_DATA.length == 11){
+      if(BaseExchangeListing.EXCHANGE_DATA.length == 6){
         BaseExchangeListing.EXCHANGE_DATA.pop();
       }
       return BaseExchangeListing.EXCHANGE_DATA;
@@ -65,15 +66,15 @@ export class ExchangeService {
     let rippleVarianceIndicatorNumber = Math.floor((Math.random() * 3));
     
     if(bitcoinVarianceIndicatorNumber !== 0) {
-      bitcoinVariance = Math.floor((Math.random() * 60));
+      bitcoinVariance = Math.floor((Math.random() * Variance.BITCOIN));
     }
     
     if(ethereumVarianceIndicatorNumber !== 0) {
-      ethereumVariance = Math.floor((Math.random() * 30));
+      ethereumVariance = Math.floor((Math.random() * Variance.ETHEREUM));
     }
 
     if(rippleVarianceIndicatorNumber !== 0) {
-      rippleVariance = Math.floor((Math.random() * 10));
+      rippleVariance = Math.floor((Math.random() * Variance.RIPPLE));
     }
 
     if(bitcoinVarianceIndicatorNumber === 2){

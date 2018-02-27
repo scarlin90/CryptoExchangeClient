@@ -1,4 +1,5 @@
 <mat-toolbar color="primary">
+  Crypto Exchange
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
   
@@ -14,17 +15,20 @@
   </mat-toolbar>
 <br>
 
-<br>
-  <mat-tab-group>
-      <mat-tab label="Currency Trend Table">
-          <app-exchange-listings></app-exchange-listings>
-            
-        </mat-tab>
-      <mat-tab label="Currency Trend Graph">
-        <app-exchange-currency-trend-line-graph></app-exchange-currency-trend-line-graph>
-          
-      </mat-tab>
-      <mat-tab label="Worldwide Market Share">
-          <app-exchange-cap-piechart></app-exchange-cap-piechart>
-      </mat-tab>
-    </mat-tab-group>
+<br>            
+<mat-tab-group>
+  <mat-tab label="Currency Trend Graph">
+  <div id="row1">
+    <div id="column1">
+      <app-exchange-currency-trend-line-graph></app-exchange-currency-trend-line-graph>
+    </div>
+    <div id="column2">
+      <app-exchange-listings></app-exchange-listings></div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Worldwide Market Share">
+  <div id="row1">
+    <app-exchange-cap-piechart></app-exchange-cap-piechart>
+  </div>
+  </mat-tab>
+</mat-tab-group> 

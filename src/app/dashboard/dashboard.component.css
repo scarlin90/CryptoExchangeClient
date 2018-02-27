@@ -3,3 +3,21 @@
        Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
   }
+
+#row1{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+
+#column1{
+  margin-top: 50px;
+  display:flex;
+  flex-direction:column;
+}
+
+#column2{
+  margin-top: 50px;
+  display:flex;
+  flex-direction:column;
+}

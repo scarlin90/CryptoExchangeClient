@@ -12,7 +12,7 @@ export class ExchangeCurrencyTrendLineGraphComponent implements OnInit {
 
   chartData: ExchangeCurrencyTrend[];
   constructor(private exchangeService: ExchangeService) { 
-    let test = this.exchangeService.exchangeListingEmitter.dataChange3.subscribe(s => {
+    let test = this.exchangeService.exchangeDataEmitter.exchangeCurrencyTrendDataStream.subscribe(s => {
       this.chartData = s;
     });
   }

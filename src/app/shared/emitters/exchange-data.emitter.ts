@@ -5,12 +5,11 @@ import { CurrencyType, ExchangeCurrency } from "../models/exchange-currency.mode
 import { ExchangeCurrencyShare } from "../models/exchange-currency-share.model";
 import { ExchangeCurrencyTrend } from "../models/exchange-currency-trends.model";
 
-export class ExchangeListingEmitter {
+export class ExchangeDataEmitter {
     
-    dataChange: BehaviorSubject<ExchangeListing[]> = new BehaviorSubject<ExchangeListing[]>([]);
-    dataChange2: BehaviorSubject<ExchangeCurrencyShare[]> = new BehaviorSubject<ExchangeCurrencyShare[]>([]);
-    dataChange3: BehaviorSubject<ExchangeCurrencyTrend[]> = new BehaviorSubject<ExchangeCurrencyTrend[]>([]);
-    get data(): ExchangeListing[] { return this.dataChange.value; }
+    exchangeListingDataStream: BehaviorSubject<ExchangeListing[]> = new BehaviorSubject<ExchangeListing[]>([]);
+    exchangeCurrencyShareDataStream: BehaviorSubject<ExchangeCurrencyShare[]> = new BehaviorSubject<ExchangeCurrencyShare[]>([]);
+    exchangeCurrencyTrendDataStream: BehaviorSubject<ExchangeCurrencyTrend[]> = new BehaviorSubject<ExchangeCurrencyTrend[]>([]);
     constructor() {
     }
   }

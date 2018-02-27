@@ -3,7 +3,6 @@ import { timer } from 'rxjs/observable/timer';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { ExchangeListingEmitter } from '../../shared/emitters/exchange-listing.emitter';
 import { ExchangeListingDataSource } from '../../shared/datasources/exchange-listing.datasouce';
 import { BaseExchangeListing } from '../../shared/constants/base-exchange-listing.constant';
 import { ExchangeCurrency, CurrencyType } from '../../shared/models/exchange-currency.model';
