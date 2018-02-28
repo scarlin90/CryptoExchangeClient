@@ -20,3 +20,7 @@ $ yarn start
 
 > Note: Once installation is complete, leave terminal open and open a web browser
 > Enter the following web address http://localhost:4200
+
+> App Login Credentials
+> Username: tester
+> Password: tester
