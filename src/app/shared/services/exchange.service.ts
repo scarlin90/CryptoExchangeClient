@@ -79,12 +79,22 @@ export class ExchangeService {
 
     if(bitcoinVarianceIndicatorNumber === 2){
       variantBitcoinValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value - bitcoinVariance;
-      variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value - ethereumVariance;
-      variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value - rippleVariance;
     }
     else {
       variantBitcoinValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Bitcoin).value + bitcoinVariance;
+    }
+
+    if(ethereumVarianceIndicatorNumber === 2){
+      variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value - ethereumVariance;
+    }
+    else {
       variantEthereumValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ethereum).value + ethereumVariance;
+    }
+
+    if(rippleVarianceIndicatorNumber === 2){
+      variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value - rippleVariance;
+    }
+    else {
       variantRippleValue = previousExchangeListing.exchangeCurrencyData.get(CurrencyType.Ripple).value + rippleVariance;
     }
 

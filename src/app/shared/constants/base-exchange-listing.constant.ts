@@ -24,7 +24,7 @@ export class BaseExchangeListing {
                                   .set(CurrencyType.Ripple,
                                     {
                                       currencyType: CurrencyType.Ripple,
-                                      value: 121,
+                                      value: 250,
                                       variance: 0,
                                       varianceIndicator: ''
                                     })
