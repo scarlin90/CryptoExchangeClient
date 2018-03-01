@@ -28,4 +28,4 @@ Password: tester
 ```
 
 ### Live Demo
-https://cryptoexchange-ef76f.firebaseapp.com/login
+https://cryptoexchange-ef76f.firebaseapp.com
